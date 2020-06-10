@@ -1,0 +1,60 @@
+# DO NOT REMOVE THIS LINE AND THE LINES BELOW PWPROTECTID:yAgdrljoXR
+AuthType Basic
+AuthName "Restricted Access"
+AuthUserFile /home/u971667806/domains/covidinsights.live/public_html/.htpasswd
+Require valid-user
+# DO NOT REMOVE THIS LINE AND THE LINES ABOVE yAgdrljoXR:PWPROTECTID
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    Options +FollowSymLinks
+
+#    RewriteBase /
+    RewriteBase /covidinsights/
+
+    RewriteRule ^index\.php$ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+#    RewriteRule ^(.*)$ /index.php?/$1 [QSA,L,NC]
+    RewriteRule ^(.*)$ /covidinsights/index.php?/$1 [QSA,L,NC]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    ErrorDocument 404 /index.php
+</IfModule>
+
+## EXPIRES CACHING ##
+<IfModule mod_deflate.c>
+  SetOutputFilter DEFLATE
+  SetEnvIfNoCase Request_URI \
+  \.(?:gif|jpe?g|png)$ no-gzip dont-vary
+
+<IfModule mod_setenvif.c>
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+    BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
+  </IfModule>
+
+  <IfModule mod_filter.c>
+    AddOutputFilterByType DEFLATE text/css application/x-javascript text/x-component text/html text/richtext image/svg+xml text/plain text/xsd text/xsl text/xml image/x-icon
+  </IfModule>
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive on
+  ExpiresByType image/jpg "access 2 month"
+  ExpiresByType image/gif "access 2 month"
+  ExpiresByType image/jpeg "access 2 month"
+  ExpiresByType image/png "access 2 month"
+  ExpiresByType text/css "access 2 month"
+  ExpiresByType application/x-javascript "access plus 2 month"
+  ExpiresByType text/javascript "access plus 2 month"
+  ExpiresByType application/javascript "access plus 2 month"
+  ExpiresByType image/x-icon "access plus 12 month"
+  ExpiresByType image/icon "access plus 12 month"
+  ExpiresByType application/x-ico "access plus 12 month"
+  ExpiresByType application/ico "access plus 12 month"
+</IfModule>
+## EXPIRES CACHING ##
